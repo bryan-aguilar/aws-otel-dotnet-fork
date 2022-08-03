@@ -27,6 +27,7 @@ namespace integration_test_app.Controllers
             
             // emit load size
             int loadSize = MimicPayLoadSize();
+            Console.WriteLine(loadSize);
             _metricEmitter.emitBytesSentMetric(loadSize,Request.GetDisplayUrl(),statusCode);
             _metricEmitter.updateTotalBytesSentMetric(loadSize, Request.GetDisplayUrl(),statusCode);
             

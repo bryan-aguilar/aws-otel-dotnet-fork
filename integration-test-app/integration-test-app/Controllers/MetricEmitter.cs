@@ -67,19 +67,19 @@ namespace integration_test_app.Controllers
             KeyValuePair<string, object> dimStatusCode =
                 new KeyValuePair<string, object>(DIMENSION_STATUS_CODE, statusCodeValue);
             
-            meter.CreateObservableCounter(apiBytesSentMetricName,() => (apiBytesSent,dimApiName,dimStatusCode), 
+            meter.CreateObservableCounter(apiBytesSentMetricName,() => apiBytesSent, 
                 "one",
                 "API Request load sent in bytes");
 
-            meter.CreateObservableGauge(totalApiBytesSentMetricName, () => (totalBytesSent,dimApiName,dimStatusCode), 
+            meter.CreateObservableGauge(totalApiBytesSentMetricName, () => totalBytesSent, 
                 "one",
                 "Total API Request load sent in bytes");
 
-            meter.CreateObservableGauge(lastLatencyMetricName, () => (apiLastLatency,dimApiName,dimStatusCode), 
+            meter.CreateObservableGauge(lastLatencyMetricName, () => apiLastLatency, 
                 "ms",
                 "The last API latency observed at collection interval");
 
-            meter.CreateObservableGauge(actualQueueSizeMetricName, () => (actualQueueSize,dimApiName,dimStatusCode), 
+            meter.CreateObservableGauge(actualQueueSizeMetricName, () => actualQueueSize, 
                 "one", "The actual queue size observed at collection interval");
             // Currently not supported
             //meter.CreateObservableUpDownCounter(queueSizeChangeMetricName, () => queueSizeChange, "one",
@@ -94,8 +94,10 @@ namespace integration_test_app.Controllers
                 new KeyValuePair<string, object>(DIMENSION_STATUS_CODE, statusCode));
         }
         public void emitBytesSentMetric(int bytes, String apiName, String statusCode) {
+            Console.WriteLine("ebs: " + bytes);
             apiBytesSent += bytes;
-        }
+            Console.WriteLine("apiBs: "+ apiBytesSent);
+        } 
         /*
         public void emitQueueSizeChangeMetric(int queueSizeChange, String apiName, String statusCode) {
             queueSizeChange += queueSizeChange;
